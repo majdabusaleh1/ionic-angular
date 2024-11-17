@@ -1,0 +1,78 @@
+{
+  "LOGIN": "تسجيل الدخول",
+  "SIGNUP": "إنشاء حساب",
+  "EMAIL": "البريد الإلكتروني",
+  "PASSWORD": "كلمة المرور",
+  "LOGGING_IN": "جاري تسجيل الدخول...",
+  "AUTH_FAILED": "فشل في التوثيق",
+  "EMAIL_EXISTS": "عنوان البريد الإلكتروني موجود بالفعل!",
+  "EMAIL_NOT_FOUND": "لم يتم العثور على عنوان البريد الإلكتروني.",
+  "INVALID_PASSWORD": "كلمة المرور غير صحيحة.",
+  "OKAY": "حسنًا",
+  "SELECT_LANGUAGE": "اختار اللغة",
+  "SWITCH_TO_SIGNUP": "الانتقال إلى إنشاء حساب",
+  "SWITCH_TO_LOGIN": "الانتقال إلى تسجيل الدخول",
+  "INVALID_EMAIL": "عنوان بريد إلكتروني غير صالح",
+
+  "DISCOVER_PLACES": "اكتشف الأماكن",
+  "ALL_PLACES": "جميع الأماكن",
+  "BOOKABLE_PLACES": "أماكن قابلة للحجز",
+  "NO_BOOKABLE_PLACES": "لا توجد أماكن قابلة للحجز في الوقت الحالي، يرجى العودة لاحقًا!",
+  "NIGHT": "ليلة",
+  "MORE": "المزيد",
+
+  "LOADING": "جار التحميل...",
+  "BOOK": "حجز",
+  "DELETE": "حذف",
+
+  "loading": {
+    "deletingPlace": "جاري حذف المكان...",
+    "bookingPlace": "جاري حجز المكان..."
+  },
+  "confirmDelete": {
+    "header": "تأكيد الحذف",
+    "message": "هل أنت متأكد أنك تريد حذف هذا المكان؟"
+  },
+  "unauthorized": {
+    "header": "غير مصرح",
+    "message": "ليس لديك صلاحية لحذف هذا المكان."
+  },
+  "actionSheet": {
+    "selectDate": "اختيار التاريخ",
+    "randomDate": "تاريخ عشوائي",
+    "cancel": "إلغاء",
+    "delete": "مسح"
+  },
+  "error": {
+    "placeLoad": "حدث خطأ! تعذر تحميل المكان.",
+    "noUser": "لم يتم العثور على مستخدم!"
+  },
+
+  "MY_OFFERS": "عروضي",
+  "NO_OFFERS_FOUND": "لا توجد عروض! يرجى إنشاء واحدة أولاً!",
+  "OFFER_NEW_PLACE": "إضافة عرض جديد",
+
+  "EDIT_OFFER": "تعديل العرض",
+  "TITLE": "العنوان",
+  "SHORT_DESCRIPTION": "الوصف القصير",
+  "DESCRIPTION_VALIDATION": "يجب أن يكون الوصف بين 1 و 180 حرفًا.",
+  "ERROR_OCCURRED": "حدث خطأ",
+  "PLACE_FETCH_ERROR": "لم يتم جلب المكان، حاول مرة أخرى لاحقاً.",
+  "UPDATING_PLACE": "جاري تحديث المكان...",
+
+  "NEW_OFFER": "عرض جديد",
+  "IMAGE_URL": "رابط الصورة",
+  "PRICE": "السعر",
+  "AVAILABLE_FROM": "متاح من",
+  "AVAILABLE_TO": "متاح حتى",
+  "CREATING_OFFER": "جاري إنشاء العرض...",
+
+  "TO": "الى",
+
+  "DISCOVER": "اكتشاف",
+  "OFFERS": "عروض",
+
+  "APP_TITLE": "PairBnB",
+  "YOUR_BOOKING": "حجزك",
+  "LOGOUT": "تسجيل الخروج"
+}

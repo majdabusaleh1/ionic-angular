@@ -39,3 +39,35 @@
 .ion-invalid.ion-touched ion-label {
   color: var(--ion-color-danger);
 }
+/* Align text to the right for RTL languages */
+html[dir="rtl"] {
+  text-align: right;
+}
+
+/* Optional: Adjust specific elements for RTL */
+html[dir="rtl"] ion-button,
+html[dir="rtl"] ion-title,
+html[dir="rtl"] ion-label {
+  text-align: right;
+}
+
+:root {
+  --ion-font-family: "Inter", sans-serif; /* Default for English */
+  --ion-font-family-base: "Inter", sans-serif;
+  --ion-font-family-heading: "Inter", sans-serif;
+  --ion-font-family-input: "Inter", sans-serif;
+}
+
+[lang="ar"] {
+  --ion-font-family: "Inter Arabic", sans-serif;
+  --ion-font-family-base: "Inter Arabic", sans-serif;
+  --ion-font-family-heading: "Inter Arabic", sans-serif;
+  --ion-font-family-input: "Inter Arabic", sans-serif;
+}
+
+[lang="he"] {
+  --ion-font-family: "David Libre", serif;
+  --ion-font-family-base: "David Libre", serif;
+  --ion-font-family-heading: "David Libre", serif;
+  --ion-font-family-input: "David Libre", serif;
+}

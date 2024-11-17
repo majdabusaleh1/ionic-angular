@@ -92,22 +92,22 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  signup(email: string, password: string) {
+  signup(email: string, password: string, language: string) {
     return this.http
       .post<AuthResponseData>(
         `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${environment.firebaseAPIKey}`,
         { email: email, password: password, returnSecureToken: true }
       )
-      .pipe(tap(this.setUserData.bind(this)));
+      .pipe(tap((userData) => this.setUserData(userData, language)));
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, language: string) {
     return this.http
       .post<AuthResponseData>(
         `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${environment.firebaseAPIKey}`,
         { email: email, password: password, returnSecureToken: true }
       )
-      .pipe(tap(this.setUserData.bind(this)));
+      .pipe(tap((userData) => this.setUserData(userData, language)));
   }
 
   async logout() {
@@ -116,9 +116,10 @@ export class AuthService implements OnDestroy {
     }
     this._user.next(null);
     await Preferences.remove({ key: 'authData' });
+    await Preferences.remove({ key: 'selectedLanguage' }); // Remove the language preference on logout
   }
 
-  private setUserData(userData: AuthResponseData) {
+  private setUserData(userData: AuthResponseData, language: string) {
     const expirationTime = new Date(
       new Date().getTime() + +userData.expiresIn * 1000
     );
@@ -136,6 +137,7 @@ export class AuthService implements OnDestroy {
       expirationTime.toISOString(),
       userData.email
     );
+    this.storeLanguagePreference(language); // Save language preference during login/signup
   }
 
   ngOnDestroy() {
@@ -166,5 +168,15 @@ export class AuthService implements OnDestroy {
       email: email,
     });
     await Preferences.set({ key: 'authData', value: data });
+  }
+
+  private async storeLanguagePreference(language: string) {
+    await Preferences.set({ key: 'selectedLanguage', value: language });
+  }
+
+  // New method to get the language preference
+  async getLanguagePreference(): Promise<string | null> {
+    const language = await Preferences.get({ key: 'selectedLanguage' });
+    return language.value || null;
   }
 }

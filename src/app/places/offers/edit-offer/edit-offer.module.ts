@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EditOfferPageRoutingModule } from './edit-offer-routing.module';
 
 import { EditOfferPage } from './edit-offer.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { EditOfferPage } from './edit-offer.page';
     ReactiveFormsModule,
     IonicModule,
     EditOfferPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [EditOfferPage],
 })

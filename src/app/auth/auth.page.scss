@@ -1,0 +1,14 @@
+ion-action-sheet {
+  --text-align: center;
+}
+
+ion-action-sheet button {
+  text-align: center;
+}
+
+ion-action-sheet {
+  .action-sheet-button {
+    text-align: center;
+    font-weight: bold;
+  }
+}

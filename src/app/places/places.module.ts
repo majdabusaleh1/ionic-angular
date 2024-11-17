@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { PlacesPageRoutingModule } from './places-routing.module';
 
 import { PlacesPage } from './places.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PlacesPageRoutingModule
+    PlacesPageRoutingModule,
+    TranslateModule,
   ],
-  declarations: [PlacesPage]
+  declarations: [PlacesPage],
 })
 export class PlacesPageModule {}

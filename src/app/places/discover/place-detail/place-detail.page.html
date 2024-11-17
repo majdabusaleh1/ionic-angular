@@ -1,13 +1,20 @@
-<ion-header>
+<ion-header
+  [attr.dir]="currentLang === 'ar' || currentLang === 'he' ? 'rtl' : 'ltr'"
+>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/places/tabs/discover"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ isLoading ? 'Is Loading...' : place.title }}</ion-title>
+    <ion-title
+      >{{ isLoading ? ('LOADING' | translate) : place.title }}</ion-title
+    >
+    <!-- Translatable title -->
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content
+  [attr.dir]="currentLang === 'ar' || currentLang === 'he' ? 'rtl' : 'ltr'"
+>
   <div *ngIf="isLoading" class="ion-text-center">
     <ion-spinner color="primary"></ion-spinner>
   </div>
@@ -25,16 +32,17 @@
     <ion-row *ngIf="isBookable || isAdmin">
       <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
         <ion-button color="primary" class="ion-margin" (click)="onBookPlace()">
-          Book
+          {{ 'BOOK' | translate }}
+          <!-- Translatable 'Book' text -->
         </ion-button>
-        <!-- Only show delete button if the user is an admin -->
         <ion-button
           *ngIf="isAdmin"
           color="danger"
           class="ion-margin"
           (click)="onDeletePlace()"
         >
-          Delete
+          {{ 'DELETE' | translate }}
+          <!-- Translatable 'Delete' text -->
         </ion-button>
       </ion-col>
     </ion-row>

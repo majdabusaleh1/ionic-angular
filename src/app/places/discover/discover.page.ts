@@ -6,6 +6,8 @@ import { Subscription, take } from 'rxjs';
 import { PlacesService } from '../places.service';
 import { Place } from '../place.module';
 import { AuthService } from 'src/app/auth/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage-angular'; // Import Ionic Storage
 
 @Component({
   selector: 'app-discover',
@@ -22,15 +24,26 @@ export class DiscoverPage implements OnInit, OnDestroy {
   constructor(
     private placesService: PlacesService,
     private menuCtrl: MenuController,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService, // Injecting TranslateService
+    private storage: Storage // Injecting Ionic Storage
   ) {}
 
   ngOnInit() {
+    this.loadLanguage(); // Load the language setting when the page initializes
+
     this.placesSub = this.placesService.places.subscribe((places) => {
       this.loadedPlaces = places;
       this.relevantPlaces = this.loadedPlaces;
       this.listedLoadedPlaces = this.relevantPlaces.slice(1);
     });
+  }
+
+  private async loadLanguage() {
+    const storedLang = await this.storage.get('selectedLang');
+    const languageToUse = storedLang || 'en'; // Default to 'en' if no language is found
+    this.translate.use(languageToUse);
+    this.setAppDirection(languageToUse); // Set direction based on language
   }
 
   onOpenMenu() {
@@ -62,5 +75,16 @@ export class DiscoverPage implements OnInit, OnDestroy {
     if (this.placesSub) {
       this.placesSub.unsubscribe();
     }
+  }
+
+  // Method to switch language dynamically (if needed)
+  async switchLanguage(lang: string) {
+    this.translate.use(lang);
+    this.storage.set('selectedLang', lang); // Save the language choice to Ionic Storage
+  }
+
+  private setAppDirection(lang: string) {
+    const direction = lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', direction);
   }
 }

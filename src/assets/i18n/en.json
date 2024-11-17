@@ -1,0 +1,78 @@
+{
+  "LOGIN": "Login",
+  "SIGNUP": "Sign Up",
+  "EMAIL": "Email",
+  "PASSWORD": "Password",
+  "LOGGING_IN": "Logging in...",
+  "AUTH_FAILED": "Authentication failed",
+  "EMAIL_EXISTS": "Email address already exists!",
+  "EMAIL_NOT_FOUND": "Email address not found.",
+  "INVALID_PASSWORD": "Invalid password.",
+  "OKAY": "Okay",
+  "SELECT_LANGUAGE": "Select Language",
+  "SWITCH_TO_SIGNUP": "Switch to Sign Up",
+  "SWITCH_TO_LOGIN": "Switch to Login",
+  "INVALID_EMAIL": "Invalid email address",
+
+  "DISCOVER_PLACES": "Discover Places",
+  "ALL_PLACES": "All Places",
+  "BOOKABLE_PLACES": "Bookable Places",
+  "NO_BOOKABLE_PLACES": "There are no bookable places right now, please come back later!",
+  "NIGHT": "Night",
+  "MORE": "More",
+
+  "LOADING": "Loading...",
+  "BOOK": "Book",
+  "DELETE": "Delete",
+
+  "loading": {
+    "deletingPlace": "Deleting place...",
+    "bookingPlace": "Booking place..."
+  },
+  "confirmDelete": {
+    "header": "Confirm Delete",
+    "message": "Are you sure you want to delete this place?"
+  },
+  "unauthorized": {
+    "header": "Unauthorized",
+    "message": "You do not have permission to delete this place."
+  },
+  "actionSheet": {
+    "selectDate": "Select Date",
+    "randomDate": "Random Date",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "error": {
+    "placeLoad": "An error occurred! Could not load place.",
+    "noUser": "No user found!"
+  },
+
+  "MY_OFFERS": "My Offers",
+  "NO_OFFERS_FOUND": "No offers found! Please create one first!",
+  "OFFER_NEW_PLACE": "Offer New Place",
+
+  "EDIT_OFFER": "Edit Offer",
+  "TITLE": "Title",
+  "SHORT_DESCRIPTION": "Short Description",
+  "DESCRIPTION_VALIDATION": "Description must be between 1 and 180 characters.",
+  "ERROR_OCCURRED": "An error occurred",
+  "PLACE_FETCH_ERROR": "Place could not be fetched, try again later.",
+  "UPDATING_PLACE": "Updating Place...",
+
+  "NEW_OFFER": "New Offer",
+  "IMAGE_URL": "Image URL",
+  "PRICE": "Price",
+  "AVAILABLE_FROM": "Available from",
+  "AVAILABLE_TO": "Available to",
+  "CREATING_OFFER": "Creating Offer...",
+
+  "TO": "to",
+
+  "DISCOVER": "Discover",
+  "OFFERS": "Offers",
+
+  "APP_TITLE": "PairBnB",
+  "YOUR_BOOKING": "Your Booking",
+  "LOGOUT": "Logout"
+}

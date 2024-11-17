@@ -10,6 +10,9 @@ import { PlacesService } from '../../places.service';
 import { Place } from '../../place.module';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage-angular';
+
 @Component({
   selector: 'app-edit-offer',
   templateUrl: './edit-offer.page.html',
@@ -37,10 +40,14 @@ export class EditOfferPage implements OnInit, OnDestroy {
     private placesService: PlacesService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private translate: TranslateService,
+    private storage: Storage
   ) {}
 
   ngOnInit() {
+    this.loadLanguage();
+
     this.route.paramMap.subscribe((paramMap) => {
       if (!paramMap.has('placeId')) {
         this.navCtrl.navigateBack('/places/tabs/offers');
@@ -76,21 +83,25 @@ export class EditOfferPage implements OnInit, OnDestroy {
             }
           },
           (error) => {
-            this.alertCtrl
-              .create({
-                header: 'An error occurred',
-                message: 'Place could not be fetched, try again later.',
-                buttons: [
-                  {
-                    text: 'Okay',
-                    handler: () => {
-                      this.router.navigate(['/places/tabs/offers']);
-                    },
-                  },
-                ],
-              })
-              .then((alertEl) => {
-                alertEl.present();
+            this.translate
+              .get(['ERROR_OCCURRED', 'PLACE_FETCH_ERROR', 'OKAY'])
+              .subscribe((translations) => {
+                this.alertCtrl
+                  .create({
+                    header: translations['ERROR_OCCURRED'],
+                    message: translations['PLACE_FETCH_ERROR'],
+                    buttons: [
+                      {
+                        text: translations['OKAY'],
+                        handler: () => {
+                          this.router.navigate(['/places/tabs/offers']);
+                        },
+                      },
+                    ],
+                  })
+                  .then((alertEl) => {
+                    alertEl.present();
+                  });
               });
           }
         );
@@ -102,29 +113,47 @@ export class EditOfferPage implements OnInit, OnDestroy {
     if (!this.form.valid) {
       return;
     }
-    this.loadingCtrl
-      .create({
-        message: 'Updating Place...',
-      })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.placesService
-          .updatePlace(
-            this.place.id,
-            this.form.value.title,
-            this.form.value.description
-          )
-          .subscribe(() => {
-            loadingEl.dismiss();
-            this.form.reset();
-            this.router.navigate(['/places/tabs/offers']);
-          });
-      });
+    this.translate.get('UPDATING_PLACE').subscribe((loadingMessage) => {
+      this.loadingCtrl
+        .create({
+          message: loadingMessage, // Use translated message
+        })
+        .then((loadingEl) => {
+          loadingEl.present();
+          this.placesService
+            .updatePlace(
+              this.place.id,
+              this.form.value.title,
+              this.form.value.description
+            )
+            .subscribe(() => {
+              loadingEl.dismiss();
+              this.form.reset();
+              this.router.navigate(['/places/tabs/offers']);
+            });
+        });
+    });
   }
 
   ngOnDestroy() {
     if (this.placeSub) {
       this.placeSub.unsubscribe();
     }
+  }
+
+  private async loadLanguage() {
+    const storedLang = await this.storage.get('selectedLang');
+    const languageToUse = storedLang || 'en'; // Default to 'en' if no language is found
+    this.translate.use(languageToUse);
+    this.setAppDirection(languageToUse); // Set direction based on language
+  }
+  async switchLanguage(lang: string) {
+    this.translate.use(lang);
+    this.storage.set('selectedLang', lang); // Save the language choice to Ionic Storage
+  }
+
+  private setAppDirection(lang: string) {
+    const direction = lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', direction);
   }
 }

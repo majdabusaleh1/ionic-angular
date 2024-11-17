@@ -1,18 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, switchMap, take } from 'rxjs';
+import { PlacesService } from '../../places.service';
+import { Place } from '../../place.module';
+import { AuthService } from 'src/app/auth/auth.service';
 import {
-  ActionSheetController,
   AlertController,
   LoadingController,
   ModalController,
   NavController,
 } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage-angular';
 import { CreateBookingComponent } from 'src/app/bookings/create-booking/create-booking.component';
-import { Place } from '../../place.module';
-import { PlacesService } from '../../places.service';
-import { Subscription, switchMap, take } from 'rxjs';
 import { BookingService } from 'src/app/bookings/booking.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-place-detail',
@@ -23,8 +25,9 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
   place!: Place;
   isBookable = false;
   isLoading = false;
-  isAdmin = false; // New isAdmin property to check admin status
+  isAdmin = false;
   private placeSub!: Subscription;
+  currentLang: string = 'en'; // Track the current language
 
   constructor(
     private navCtrl: NavController,
@@ -36,10 +39,14 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
     private loadingCtrl: LoadingController,
     private authService: AuthService,
     private alertCtrl: AlertController,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService,
+    private storage: Storage
   ) {}
 
   ngOnInit() {
+    this.loadLanguage();
+
     this.route.paramMap.subscribe((paramMap) => {
       const placeId = paramMap.get('placeId');
       if (!placeId) {
@@ -53,12 +60,12 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
           take(1),
           switchMap((userId) => {
             if (!userId) {
-              throw new Error('Found no user!');
+              throw new Error(this.translate.instant('error.noUser'));
             }
             fetchedUserId = userId;
             this.isAdmin =
               this.authService.getCurrentUserEmail() ===
-              'majd.abusaleh88@gmail.com'; // Check if user is admin
+              'majd.abusaleh88@gmail.com';
             return this.placesService.getPlace(placeId);
           })
         )
@@ -69,26 +76,44 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
             this.isLoading = false;
           },
           (error) => {
-            this.showAlert('An error occurred!', 'Could not load place.');
+            this.showAlert(
+              this.translate.instant('error.placeLoad'),
+              error.message
+            );
           }
         );
     });
   }
 
+  private async loadLanguage() {
+    const storedLang = await this.storage.get('selectedLang');
+    this.currentLang = storedLang || 'en'; // Default to 'en' if no language is found
+    this.translate.use(this.currentLang);
+  }
+
+  ngOnDestroy() {
+    if (this.placeSub) {
+      this.placeSub.unsubscribe();
+    }
+  }
+
   onBookPlace() {
     this.actionSheetCtrl
       .create({
-        header: 'Choose an Action',
+        header: this.translate.instant('actionSheet.header'),
         buttons: [
           {
-            text: 'Select Date',
+            text: this.translate.instant('actionSheet.selectDate'),
             handler: () => this.openBookingModal('select'),
           },
           {
-            text: 'Random Date',
+            text: this.translate.instant('actionSheet.randomDate'),
             handler: () => this.openBookingModal('random'),
           },
-          { text: 'Cancel', role: 'cancel' },
+          {
+            text: this.translate.instant('actionSheet.cancel'),
+            role: 'cancel',
+          },
         ],
       })
       .then((actionSheetEl) => actionSheetEl.present());
@@ -113,7 +138,7 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
 
   private handleBookingConfirmation(data: any) {
     this.loadingCtrl
-      .create({ message: 'Booking place...' })
+      .create({ message: this.translate.instant('loading.bookingPlace') })
       .then((loadingEl) => {
         loadingEl.present();
         this.bookingService
@@ -131,23 +156,28 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
       });
   }
 
-  // Function to confirm and delete the place, only if the user is an admin
   onDeletePlace() {
     if (!this.isAdmin) {
       this.showAlert(
-        'Unauthorized',
-        'You do not have permission to delete this place.'
+        this.translate.instant('unauthorized.header'),
+        this.translate.instant('unauthorized.message')
       );
       return;
     }
 
     this.alertCtrl
       .create({
-        header: 'Confirm Delete',
-        message: 'Are you sure you want to delete this place?',
+        header: this.translate.instant('confirmDelete.header'),
+        message: this.translate.instant('confirmDelete.message'),
         buttons: [
-          { text: 'Cancel', role: 'cancel' },
-          { text: 'Delete', handler: () => this.confirmDeletePlace() },
+          {
+            text: this.translate.instant('actionSheet.cancel'),
+            role: 'cancel',
+          },
+          {
+            text: this.translate.instant('actionSheet.delete'),
+            handler: () => this.confirmDeletePlace(),
+          },
         ],
       })
       .then((alertEl) => alertEl.present());
@@ -155,7 +185,10 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
 
   private confirmDeletePlace() {
     this.loadingCtrl
-      .create({ message: 'Deleting place...', spinner: 'crescent' })
+      .create({
+        message: this.translate.instant('loading.deletingPlace'),
+        spinner: 'crescent',
+      })
       .then((loadingEl) => {
         loadingEl.present();
         this.bookingService.getBookingsForPlace(this.place.id).subscribe(
@@ -204,17 +237,11 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
         message,
         buttons: [
           {
-            text: 'Okay',
+            text: this.translate.instant('actionSheet.okay'),
             handler: () => this.router.navigate(['/places/tabs/discover']),
           },
         ],
       })
       .then((alertEl) => alertEl.present());
-  }
-
-  ngOnDestroy() {
-    if (this.placeSub) {
-      this.placeSub.unsubscribe();
-    }
   }
 }

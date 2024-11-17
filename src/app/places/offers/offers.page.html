@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>My Offers</ion-title>
+    <!-- Translate the title -->
+    <ion-title>{{ 'MY_OFFERS' | translate }}</ion-title>
+
     <ion-buttons slot="primary">
       <ion-button routerLink="/places/tabs/offers/new">
         <ion-icon name="add" slot="icon-only"></ion-icon>
@@ -16,15 +18,20 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="8" offset-sm="2">
+        <!-- Loading spinner -->
         <div *ngIf="isLoading" class="ion-text-center">
           <ion-spinner color="primary"></ion-spinner>
         </div>
+
+        <!-- No offers found message -->
         <div class="ion-text-center" *ngIf="!isLoading && offers.length <= 0">
-          <p>No offers found! Please create one first!</p>
-          <ion-button color="primary" routerLink="/places/tabs/offers/new"
-            >Offer New Place</ion-button
-          >
+          <p>{{ 'NO_OFFERS_FOUND' | translate }}</p>
+          <ion-button color="primary" routerLink="/places/tabs/offers/new">
+            {{ 'OFFER_NEW_PLACE' | translate }}
+          </ion-button>
         </div>
+
+        <!-- List of offers -->
         <ion-list *ngIf="!isLoading && offers.length > 0">
           <ion-item-sliding *ngFor="let offer of offers" #slidingItem>
             <app-offer-item [offer]="offer"></app-offer-item>

@@ -3,6 +3,8 @@ import { Place } from '../../place.module';
 import { PlacesService } from '../../places.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-offer-item',
@@ -23,10 +25,14 @@ export class OfferItemComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private placesService: PlacesService
+    private placesService: PlacesService,
+    private translate: TranslateService,
+    private storage: Storage
   ) {}
 
   ngOnInit() {
+    this.loadLanguage();
+
     this.route.paramMap.subscribe((paramMap) => {
       if (!paramMap.has('placeId')) {
         //this.navCtrl.navigateBack('/places/tabs/offers');
@@ -51,5 +57,21 @@ export class OfferItemComponent implements OnInit {
         });
       }
     });
+  }
+
+  private async loadLanguage() {
+    const storedLang = await this.storage.get('selectedLang');
+    const languageToUse = storedLang || 'en'; // Default to 'en' if no language is found
+    this.translate.use(languageToUse);
+    this.setAppDirection(languageToUse); // Set direction based on language
+  }
+  async switchLanguage(lang: string) {
+    this.translate.use(lang);
+    this.storage.set('selectedLang', lang); // Save the language choice to Ionic Storage
+  }
+
+  private setAppDirection(lang: string) {
+    const direction = lang === 'ar' || lang === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('dir', direction);
   }
 }

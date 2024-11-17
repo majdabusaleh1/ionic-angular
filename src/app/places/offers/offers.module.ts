@@ -8,9 +8,16 @@ import { OffersPageRoutingModule } from './offers-routing.module';
 
 import { OffersPage } from './offers.page';
 import { OfferItemComponent } from './offer-item/offer-item.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, OffersPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    OffersPageRoutingModule,
+    TranslateModule,
+  ],
   declarations: [OffersPage, OfferItemComponent],
 })
 export class OffersPageModule {}

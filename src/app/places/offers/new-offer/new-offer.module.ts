@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { NewOfferPageRoutingModule } from './new-offer-routing.module';
 
 import { NewOfferPage } from './new-offer.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { NewOfferPage } from './new-offer.page';
     IonicModule,
     ReactiveFormsModule,
     NewOfferPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [NewOfferPage],
 })

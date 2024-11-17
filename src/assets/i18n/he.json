@@ -1,0 +1,78 @@
+{
+  "LOGIN": "התחברות",
+  "SIGNUP": "צור חשבון",
+  "EMAIL": "דוא\"ל",
+  "PASSWORD": "סיסמה",
+  "LOGGING_IN": "ביצוע התחברות...",
+  "AUTH_FAILED": "הזדהות נכשלה",
+  "EMAIL_EXISTS": "כתובת הדוא\"ל כבר קיימת!",
+  "EMAIL_NOT_FOUND": "לא נמצאה כתובת דוא\"ל.",
+  "INVALID_PASSWORD": "סיסמה לא נכונה.",
+  "OKAY": "אוקי",
+  "SELECT_LANGUAGE": "בחר שפה",
+  "SWITCH_TO_SIGNUP": "לעבור לצור חשבון",
+  "SWITCH_TO_LOGIN": "לעבור להתחברות",
+  "INVALID_EMAIL": "כתובת דוא\"ל לא תקפה",
+
+  "DISCOVER_PLACES": "גלה מקומות",
+  "ALL_PLACES": "כל המקומות",
+  "BOOKABLE_PLACES": "מקומות שניתן להזמין",
+  "NO_BOOKABLE_PLACES": "אין מקומות שניתן להזמין כרגע, בבקשה תחזור מאוחר יותר!",
+  "NIGHT": "לילה",
+  "MORE": "עוד",
+
+  "LOADING": "טוען...",
+  "BOOK": "הזמנה",
+  "DELETE": "מחק",
+
+  "loading": {
+    "deletingPlace": "גاري מחיקת המקום...",
+    "bookingPlace": "גاري ביצוע הזמנה..."
+  },
+  "confirmDelete": {
+    "header": "אישור מחיקה",
+    "message": "האם אתה בטוח שברצונך למחוק את המקום הזה?"
+  },
+  "unauthorized": {
+    "header": "לא מורשה",
+    "message": "אין לך הרשאה למחוק מקום זה."
+  },
+  "actionSheet": {
+    "selectDate": "בחר תאריך",
+    "randomDate": "תאריך אקראי",
+    "cancel": "ביטול",
+    "delete": "מחק"
+  },
+  "error": {
+    "placeLoad": "התרחשה שגיאה! לא ניתן לטעון את המקום.",
+    "noUser": "לא נמצא משתמש!"
+  },
+
+  "MY_OFFERS": "ההצעות שלי",
+  "NO_OFFERS_FOUND": "לא נמצאו הצעות! אנא צור אחת תחילה!",
+  "OFFER_NEW_PLACE": "הצע מקום חדש",
+
+  "EDIT_OFFER": "ערוך הצעה",
+  "TITLE": "כותרת",
+  "SHORT_DESCRIPTION": "תיאור קצר",
+  "DESCRIPTION_VALIDATION": "ההסבר חייב להיות בין 1 ל-180 תווים.",
+  "ERROR_OCCURRED": "התרחשה שגיאה",
+  "PLACE_FETCH_ERROR": "לא ניתן להוריד את המקום, נסה מאוחר יותר.",
+  "UPDATING_PLACE": "מעדכן מקום...",
+
+  "NEW_OFFER": "הצעה חדשה",
+  "IMAGE_URL": "כתובת התמונה",
+  "PRICE": "מחיר",
+  "AVAILABLE_FROM": "זמין מ-",
+  "AVAILABLE_TO": "זמין עד-",
+  "CREATING_OFFER": "יצירת הצעה...",
+
+  "TO": "ל",
+
+  "DISCOVER": "גלה",
+  "OFFERS": "הצעות",
+
+  "APP_TITLE": "PairBnB",
+  "YOUR_BOOKING": "ההזמנה שלך",
+  "LOGOUT": "התנתקות"
+}
